@@ -252,34 +252,59 @@
     display:grid; grid-template-columns: repeat(3, 1fr); gap:20px;
   }
   .svc {
-    background:#fff; border-radius:20px; padding:36px 30px;
+    background:#fff; border-radius:20px; padding:0;
     border:1.5px solid rgba(59,92,140,0.1);
     transition:all .3s; position:relative; overflow:hidden;
-    cursor:default;
+    cursor:default; display:flex; flex-direction:column;
   }
   .svc::before {
     content:''; position:absolute; top:0; left:0; right:0; height:3px;
     background: linear-gradient(90deg, var(--steel), var(--sky));
     transform:scaleX(0); transform-origin:left; transition:transform .3s;
+    z-index:2;
   }
   .svc:hover { border-color: var(--steel); box-shadow:0 16px 48px rgba(36,59,110,0.12); transform:translateY(-4px); }
   .svc:hover::before { transform:scaleX(1); }
+
+  /* Service image */
+  .svc-img {
+    width:100%; height:180px; overflow:hidden; position:relative; flex-shrink:0;
+  }
+  .svc-img img {
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .5s ease;
+  }
+  .svc:hover .svc-img img { transform:scale(1.07); }
+  .svc-img-overlay {
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, transparent 40%, rgba(27,45,79,0.45) 100%);
+  }
+  .svc-img-num {
+    position:absolute; top:14px; left:16px;
+    font-size:11px; font-weight:700; letter-spacing:2px; color:rgba(255,255,255,0.85);
+    text-transform:uppercase;
+    background:rgba(27,45,79,0.55); backdrop-filter:blur(6px);
+    padding:4px 10px; border-radius:100px;
+  }
+
+  .svc-body { padding:26px 28px 30px; flex:1; display:flex; flex-direction:column; }
+
   .svc-num {
     font-size:11px; font-weight:700; letter-spacing:2px; color:var(--mist);
     text-transform:uppercase; margin-bottom:20px;
   }
   .svc-icon {
-    width:52px; height:52px; border-radius:14px;
+    width:44px; height:44px; border-radius:12px;
     background: linear-gradient(135deg, var(--frost) 0%, var(--mist) 100%);
-    display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:14px;
   }
-  .svc-icon svg { width:24px; height:24px; stroke:var(--steel); fill:none; stroke-width:1.8; }
-  .svc h3 { font-size:19px; font-weight:800; color:var(--navy-deep); margin-bottom:10px; letter-spacing:-.3px; }
-  .svc p { font-size:13.5px; color:var(--gray); line-height:1.7; }
-  .svc-price { margin-top:22px; font-size:14px; font-weight:700; color:var(--steel); }
+  .svc-icon svg { width:22px; height:22px; stroke:var(--steel); fill:none; stroke-width:1.8; }
+  .svc h3 { font-size:18px; font-weight:800; color:var(--navy-deep); margin-bottom:8px; letter-spacing:-.3px; }
+  .svc p { font-size:13px; color:var(--gray); line-height:1.7; flex:1; }
+  .svc-price { margin-top:18px; font-size:14px; font-weight:700; color:var(--steel); }
   .svc-link {
     display:inline-flex; align-items:center; gap:6px;
-    margin-top:14px; font-size:13px; font-weight:600;
+    margin-top:12px; font-size:13px; font-weight:600;
     color:var(--navy); text-decoration:none; transition:gap .2s;
   }
   .svc-link:hover { gap:10px; }
@@ -446,6 +471,7 @@
     .hero-stats-inner { grid-template-columns:repeat(2,1fr); border-radius:16px 16px 0 0; }
     .section { padding:70px 24px; }
     .services-grid { grid-template-columns:1fr; }
+    .svc-img { height:200px; }
     .why { padding:70px 24px; }
     .why-inner { grid-template-columns:1fr; gap:40px; }
     .why-img-wrap { height:320px; }
@@ -566,69 +592,105 @@
   <div class="services-grid">
 
     <div class="svc">
-      <div class="svc-num">01</div>
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 3v1M4.22 4.22l.71.71M3 12H2M4.22 19.78l.71-.71M12 21v-1M19.78 19.07l-.71-.71M21 12h-1M19.07 4.93l-.71.71" stroke-linecap="round"/><circle cx="12" cy="12" r="4"/></svg>
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=600&q=80&auto=format&fit=crop" alt="Blanqueamiento Dental" loading="lazy">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-num">01</div>
       </div>
-      <h3>Blanqueamiento Dental</h3>
-      <p>Recupera el brillo natural de tu sonrisa con nuestro tratamiento profesional. Rápido, seguro y efectivo.</p>
-      <div class="svc-price">Desde $1,200 MXN</div>
-      <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3v1M4.22 4.22l.71.71M3 12H2M4.22 19.78l.71-.71M12 21v-1M19.78 19.07l-.71-.71M21 12h-1M19.07 4.93l-.71.71" stroke-linecap="round"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+        <h3>Blanqueamiento Dental</h3>
+        <p>Recupera el brillo natural de tu sonrisa con nuestro tratamiento profesional. Rápido, seguro y efectivo.</p>
+        <div class="svc-price">Desde $1,200 MXN</div>
+        <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
     </div>
 
     <div class="svc">
-      <div class="svc-num">02</div>
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke-linecap="round"/></svg>
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&q=80&auto=format&fit=crop" alt="Ortodoncia y Brackets" loading="lazy">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-num">02</div>
       </div>
-      <h3>Ortodoncia & Brackets</h3>
-      <p>Brackets metálicos, cerámicos y alineadores invisibles. Corrige la alineación con el mejor tratamiento para ti.</p>
-      <div class="svc-price">Desde $8,500 MXN</div>
-      <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Ortodoncia & Brackets</h3>
+        <p>Brackets metálicos, cerámicos y alineadores invisibles. Corrige la alineación con el mejor tratamiento para ti.</p>
+        <div class="svc-price">Desde $8,500 MXN</div>
+        <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
     </div>
 
     <div class="svc">
-      <div class="svc-num">03</div>
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&q=80&auto=format&fit=crop" alt="Extracción de Muelas" loading="lazy">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-num">03</div>
       </div>
-      <h3>Extracción de Muelas</h3>
-      <p>Cirugía oral especializada con el máximo confort, mínimo dolor y tiempo de recuperación optimizado.</p>
-      <div class="svc-price">Desde $800 MXN</div>
-      <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Extracción de Muelas</h3>
+        <p>Cirugía oral especializada con el máximo confort, mínimo dolor y tiempo de recuperación optimizado.</p>
+        <div class="svc-price">Desde $800 MXN</div>
+        <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
     </div>
 
     <div class="svc">
-      <div class="svc-num">04</div>
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1601004890657-fa7a76d2e9ae?w=600&q=80&auto=format&fit=crop" alt="Carillas Dentales" loading="lazy">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-num">04</div>
       </div>
-      <h3>Carillas Dentales</h3>
-      <p>Porcelana o composite. Transforma completamente tu sonrisa con resultados naturales e inmediatos.</p>
-      <div class="svc-price">Desde $3,500 MXN</div>
-      <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Carillas Dentales</h3>
+        <p>Porcelana o composite. Transforma completamente tu sonrisa con resultados naturales e inmediatos.</p>
+        <div class="svc-price">Desde $3,500 MXN</div>
+        <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
     </div>
 
     <div class="svc">
-      <div class="svc-num">05</div>
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80&auto=format&fit=crop" alt="Implantes Dentales" loading="lazy">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-num">05</div>
       </div>
-      <h3>Implantes Dentales</h3>
-      <p>Titanio de la más alta calidad. La solución permanente y natural para reemplazar dientes perdidos.</p>
-      <div class="svc-price">Desde $12,000 MXN</div>
-      <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Implantes Dentales</h3>
+        <p>Titanio de la más alta calidad. La solución permanente y natural para reemplazar dientes perdidos.</p>
+        <div class="svc-price">Desde $12,000 MXN</div>
+        <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
     </div>
 
     <div class="svc">
-      <div class="svc-num">06</div>
-      <div class="svc-icon">
-        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80&auto=format&fit=crop" alt="Limpieza y Prevención" loading="lazy">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-num">06</div>
       </div>
-      <h3>Limpieza y Prevención</h3>
-      <p>Limpiezas profundas, flúor y consultas preventivas. Cuida tu salud bucal a largo plazo.</p>
-      <div class="svc-price">Desde $500 MXN</div>
-      <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Limpieza y Prevención</h3>
+        <p>Limpiezas profundas, flúor y consultas preventivas. Cuida tu salud bucal a largo plazo.</p>
+        <div class="svc-price">Desde $500 MXN</div>
+        <a href="#contacto" class="svc-link">Agendar cita <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
     </div>
 
   </div>
